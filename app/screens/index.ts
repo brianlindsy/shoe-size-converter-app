@@ -1,4 +1,2 @@
-export * from "./welcome/welcome-screen"
-export * from "./demo/demo-screen"
-export * from "./demo/demo-list-screen"
+export * from "./shoe-size-converter/shoe-size-converter-screen"
 // export other screens here
