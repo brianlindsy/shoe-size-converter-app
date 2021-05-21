@@ -16,11 +16,16 @@ import {
   babyEUSizes, babyUKSizes, babyUSSizes, 
   babyConverseSizes
 } from '../../utils/conversion-utils'
+import {
+  AdMobBanner,
+} from 'expo-ads-admob';
+import Constants from 'expo-constants';
 
-const FULL: ViewStyle = { flex: 1 }
+const FULL: ViewStyle = { flex: 1}
 const CONTAINER: ViewStyle = {
   backgroundColor: color.transparent,
-  paddingHorizontal: spacing[4]
+  paddingHorizontal: spacing[4],
+  justifyContent: "space-evenly"
 }
 const BOLD: TextStyle = { fontWeight: "bold" }
 const TITLE: TextStyle = {
@@ -29,6 +34,7 @@ const TITLE: TextStyle = {
   lineHeight: 38,
   textAlign: "center",
   marginBottom: spacing[5],
+  marginTop: spacing[5],
   color: 'black'
 }
 const CONTENT: TextStyle = {
@@ -48,15 +54,10 @@ const DIVIDER: ViewStyle = {
   backgroundColor: "black",
   marginBottom: spacing[5]
 }
-const DIVIDER_NO_MARGIN: ViewStyle = {
-  backgroundColor: "black"
-}
 const FROM_CONVERT: ViewStyle = {
-  height: "50%",
   justifyContent: "space-evenly"
 }
 const TO_CONVERT: ViewStyle = {
-  height: "40%",
   justifyContent: "space-evenly"
 }
 const SIZE_INPUT: ViewStyle = {
@@ -65,12 +66,27 @@ const SIZE_INPUT: ViewStyle = {
   marginBottom: spacing[5]
 }
 const CONVERTED: ViewStyle = {
-  alignItems: "center"
+  alignItems: "center",
+  marginBottom:spacing[6]
 }
 const CONVERTED_TEXT: TextStyle = {
   fontSize: 50,
   color: "green"
 }
+const MODAL_SELECTED_TEXT: TextStyle = {
+  fontSize: 25,
+  width: 175
+}
+const MODAL_DROPDOWN_TEXT: TextStyle = {
+  fontSize: 30,
+  width: 175
+}
+
+const testID = 'ca-app-pub-3940256099942544/6300978111';
+const productionID = 'ca-app-pub-8812453476407098/5349752535';
+// Is a real device and running in production.
+const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
+
 
 export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen() {
   const personType = ["Men", "Woman", "Kid", "Baby"];
@@ -85,7 +101,7 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
   const shoeSizeTypeString = shoeSizeType[selectedConversionTypeIndex];
   const personTypeString = personType[selectedPersonTypeIndex];
 
-  const modalTitle = `Size in ${shoeSizeTypeString} to convert`;
+  const modalTitle = `Size in ${shoeSizeTypeString}...`;
 
   const onChangeConversionToType = (value) => {
     setSelectedConversionToTypeIndex(value);
@@ -202,8 +218,8 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
       <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
         <Text style={TITLE} preset="header" tx="shoeSizeConverterScreen.title" />
         <Divider style={DIVIDER}/>
-        <Text style={LABEL} tx="shoeSizeConverterScreen.convertFrom"/>
         <View style={FROM_CONVERT}>
+          <Text style={LABEL} tx="shoeSizeConverterScreen.convertFrom"/>
           <SegmentedControlTab
             tabStyle={SELECTOR}
             values={personType}
@@ -221,10 +237,14 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
             <ModalDropdown
               onSelect={(index, value) => onModalSelect(index, value)}
               defaultValue={modalTitle}
-              options={conversionTypeSizeValues}/>
+              options={conversionTypeSizeValues}
+              dropdownTextHighlightStyle={MODAL_SELECTED_TEXT}
+              dropdownTextStyle={MODAL_DROPDOWN_TEXT}
+              dropdownStyle={MODAL_SELECTED_TEXT}
+              textStyle={MODAL_SELECTED_TEXT}/>
           </View>
         </View>
-        <Divider style={DIVIDER_NO_MARGIN}/>
+        <Divider style={DIVIDER}/>
         <View style={TO_CONVERT}>
           <Text style={LABEL} tx="shoeSizeConverterScreen.convertTo"/>
           <SegmentedControlTab
@@ -238,6 +258,9 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
         <View style={CONVERTED}>
           <Text style={CONVERTED_TEXT}>{convertedSizeText()}</Text>
         </View>
+        <AdMobBanner
+          bannerSize="banner"
+          adUnitID={adUnitID}/>
       </Screen>
     </View>
   )

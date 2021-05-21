@@ -2,7 +2,7 @@
   "expo": {
     "name": "Shoe Size Converter",
     "slug": "ShoeSizeConverter",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,9 +13,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "permissions" : [],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8812453476407098~7041629227"
+      },
+      "package": "com.blindsey.ShoeSizeConverter"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8812453476407098~7041629227"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
