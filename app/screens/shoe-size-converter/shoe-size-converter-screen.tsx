@@ -167,6 +167,10 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
     }
   };
 
+  const removeNegatives = (list) => {
+    return list.filter(function(x){ return x !== -1 });
+  };
+
   const onChangeConversionType = (value) => {
     setSelectedConversionTypeIndex(value);
     if(selectedPersonTypeIndex == 0){
@@ -237,7 +241,7 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
             <ModalDropdown
               onSelect={(index, value) => onModalSelect(index, value)}
               defaultValue={modalTitle}
-              options={conversionTypeSizeValues}
+              options={removeNegatives(conversionTypeSizeValues)}
               dropdownTextHighlightStyle={MODAL_SELECTED_TEXT}
               dropdownTextStyle={MODAL_DROPDOWN_TEXT}
               dropdownStyle={MODAL_SELECTED_TEXT}
