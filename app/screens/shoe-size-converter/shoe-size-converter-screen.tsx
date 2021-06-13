@@ -20,6 +20,7 @@ import {
   AdMobBanner,
 } from 'expo-ads-admob';
 import Constants from 'expo-constants';
+import {translate} from '../../i18n/translate'
 
 const FULL: ViewStyle = { flex: 1}
 const CONTAINER: ViewStyle = {
@@ -65,6 +66,9 @@ const SIZE_INPUT: ViewStyle = {
   alignItems: "center",
   marginBottom: spacing[5]
 }
+const SIZE_INPUT_TITLE: ViewStyle = {
+  flexDirection: "row",
+}
 const CONVERTED: ViewStyle = {
   alignItems: "center",
   marginBottom:spacing[6]
@@ -87,9 +91,27 @@ const productionID = 'ca-app-pub-8812453476407098/5349752535';
 // Is a real device and running in production.
 const adUnitID = Constants.isDevice && !__DEV__ ? productionID : testID;
 
+const convertPersonTypeIntl = (value) => {
+    if(value === "Men"){
+      return <Text style={CONTENT} tx="shoeSizeConverterScreen.men"/>;
+    } else if (value === "Woman"){
+      return <Text style={CONTENT} tx="shoeSizeConverterScreen.woman"/>;
+    } else if (value === "Child"){
+      return <Text style={CONTENT} tx="shoeSizeConverterScreen.child"/>;
+    } else {
+      return <Text style={CONTENT} tx="shoeSizeConverterScreen.baby"/>;
+    }
+  }
+
 
 export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen() {
-  const personType = ["Men", "Woman", "Kid", "Baby"];
+  const personType = ["Men", "Woman", "Child", "Baby"];
+  const personTypeIntl = [
+                        translate("shoeSizeConverterScreen.men"),
+                        translate("shoeSizeConverterScreen.woman"),
+                        translate("shoeSizeConverterScreen.child"),
+                        translate("shoeSizeConverterScreen.baby"),
+                      ];
   const shoeSizeType = ["US", "UK", "Euro", "Converse"];
   const [selectedPersonTypeIndex, setSelectedPersonTypeIndex] = React.useState(0);
   const [selectedConversionTypeIndex, setSelectedConversionTypeIndex] = React.useState(0);
@@ -100,8 +122,6 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
 
   const shoeSizeTypeString = shoeSizeType[selectedConversionTypeIndex];
   const personTypeString = personType[selectedPersonTypeIndex];
-
-  const modalTitle = `Size in ${shoeSizeTypeString}...`;
 
   const onChangeConversionToType = (value) => {
     setSelectedConversionToTypeIndex(value);
@@ -114,7 +134,7 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
   const convertedSizeText = () => {
     var convertedSizeNumber = convertSize(convertFromValue, selectedPersonTypeIndex, selectedConversionTypeIndex, selectedConversionToTypeIndex);
     if(convertedSizeNumber > 0){
-      return shoeSizeType[selectedConversionToTypeIndex] + " size: " + convertedSizeNumber;
+      return shoeSizeType[selectedConversionToTypeIndex] + " " + translate("shoeSizeConverterScreen.convertFromSize") + convertedSizeNumber;
     } else if (convertFromValue === -1) {
       return ""
     } else {
@@ -226,7 +246,7 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
           <Text style={LABEL} tx="shoeSizeConverterScreen.convertFrom"/>
           <SegmentedControlTab
             tabStyle={SELECTOR}
-            values={personType}
+            values={personTypeIntl}
             selectedIndex={selectedPersonTypeIndex}
             onTabPress={onChangePersonType}
           />
@@ -237,10 +257,14 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
             onTabPress={onChangeConversionType}
           />
           <View style={SIZE_INPUT}>
-            <Text style={CONTENT}>{personTypeString + "\'s " + shoeSizeTypeString} size </Text>
+            <View style={SIZE_INPUT_TITLE}>
+              <Text style={CONTENT}>{convertPersonTypeIntl(personTypeString)}</Text>
+              <Text style={CONTENT}> </Text>
+              <Text style={CONTENT} tx="shoeSizeConverterScreen.convertFromSize"/>
+            </View>
             <ModalDropdown
               onSelect={(index, value) => onModalSelect(index, value)}
-              defaultValue={modalTitle}
+              defaultValue={translate("shoeSizeConverterScreen.modalTitlePrefix") + shoeSizeTypeString}
               options={removeNegatives(conversionTypeSizeValues)}
               dropdownTextHighlightStyle={MODAL_SELECTED_TEXT}
               dropdownTextStyle={MODAL_DROPDOWN_TEXT}

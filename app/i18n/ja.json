@@ -3,5 +3,17 @@
     "ok": "OK 🇯🇵",
     "cancel": "Cancel 🇯🇵",
     "back": "Back 🇯🇵"
+  },
+  "shoeSizeConverterScreen": {
+    "title": "靴のサイズコンバーター",
+    "convertFrom": "から変換: ",
+    "convertFromSize": "サイズ: ",
+    "convertTo": "に変換: ",
+    "noConversion": "直接変換なし",
+    "modalTitlePrefix": "サイズで ",
+    "men": "男性",
+    "woman": "女性",
+    "child": "子",
+    "baby": "赤ちゃん"
   }
 }

@@ -4,20 +4,16 @@
     "cancel": "Cancel",
     "back": "Back"
   },
-  "welcomeScreen": {
-    "poweredBy": "POWERED BY IGNITE",
-    "readyForLaunch": "Ready for launch.",
-    "continue": "CONTINUE"
-  },
   "shoeSizeConverterScreen": {
     "title": "Shoe Size Converter",
     "convertFrom": "Convert from: ",
-    "convertFromSize": "US Size: ",
+    "convertFromSize": "Size: ",
     "convertTo": "Convert to: ",
-    "noConversion": "No direct conversion"
-  },
-  "storybook": {
-    "placeholder": "Placeholder",
-    "field": "Field"
+    "noConversion": "No direct conversion",
+    "modalTitlePrefix": "Size in ",
+    "men": "Men",
+    "woman": "Woman",
+    "child": "Child",
+    "baby": "Baby"
   }
 }
