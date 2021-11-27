@@ -7,10 +7,11 @@
   "shoeSizeConverterScreen": {
     "title": "Shoe Size Converter",
     "convertFrom": "Convert from: ",
-    "convertFromSize": "Size: ",
     "convertTo": "Convert to: ",
+    "convertFromSize": "size",
+    "convertedToSize": "Size: ",
     "noConversion": "No direct conversion",
-    "modalTitlePrefix": "Size in ",
+    "modalTitlePrefix": "Select size in ",
     "men": "Men",
     "woman": "Woman",
     "child": "Child",

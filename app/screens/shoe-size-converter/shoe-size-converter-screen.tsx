@@ -1,5 +1,5 @@
 import React from "react"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { Text, Screen, Wallpaper } from "../../components"
 import { color, spacing } from "../../theme"
@@ -64,10 +64,11 @@ const TO_CONVERT: ViewStyle = {
 const SIZE_INPUT: ViewStyle = {
   flexDirection: "column",
   alignItems: "center",
-  marginBottom: spacing[5]
-}
-const SIZE_INPUT_TITLE: ViewStyle = {
-  flexDirection: "row",
+  marginBottom: spacing[5],
+  borderWidth: 0,
+  borderRadius: 3,
+  borderColor: '#0076FF',
+  
 }
 const CONVERTED: ViewStyle = {
   alignItems: "center",
@@ -78,12 +79,18 @@ const CONVERTED_TEXT: TextStyle = {
   color: "green"
 }
 const MODAL_SELECTED_TEXT: TextStyle = {
-  fontSize: 25,
-  width: 175
+  fontSize: 22,
+  width: 250,
+  color: "#0076FF",
+  alignContent: "center",
 }
 const MODAL_DROPDOWN_TEXT: TextStyle = {
   fontSize: 30,
-  width: 175
+  width: 175,
+}
+
+const ADMOB: ViewStyle = {
+  paddingTop: 1
 }
 
 const testID = 'ca-app-pub-3940256099942544/6300978111';
@@ -134,7 +141,7 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
   const convertedSizeText = () => {
     var convertedSizeNumber = convertSize(convertFromValue, selectedPersonTypeIndex, selectedConversionTypeIndex, selectedConversionToTypeIndex);
     if(convertedSizeNumber > 0){
-      return shoeSizeType[selectedConversionToTypeIndex] + " " + translate("shoeSizeConverterScreen.convertFromSize") + convertedSizeNumber;
+      return shoeSizeType[selectedConversionToTypeIndex] + " " + translate("shoeSizeConverterScreen.convertedToSize") + convertedSizeNumber;
     } else if (convertFromValue === -1) {
       return ""
     } else {
@@ -240,6 +247,10 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
     <View testID="ShoeSizeConveterScreen" style={FULL}>
       <Wallpaper />
       <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
+        <AdMobBanner
+        style={ADMOB}
+          bannerSize="banner"
+          adUnitID={adUnitID}/>
         <Text style={TITLE} preset="header" tx="shoeSizeConverterScreen.title" />
         <Divider style={DIVIDER}/>
         <View style={FROM_CONVERT}>
@@ -256,21 +267,18 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
             selectedIndex={selectedConversionTypeIndex}
             onTabPress={onChangeConversionType}
           />
-          <View style={SIZE_INPUT}>
-            <View style={SIZE_INPUT_TITLE}>
-              <Text style={CONTENT}>{convertPersonTypeIntl(personTypeString)}</Text>
-              <Text style={CONTENT}> </Text>
-              <Text style={CONTENT} tx="shoeSizeConverterScreen.convertFromSize"/>
+          <TouchableOpacity>
+            <View style={SIZE_INPUT}>
+              <ModalDropdown
+                onSelect={(index, value) => onModalSelect(index, value)}
+                defaultValue={personTypeIntl[selectedPersonTypeIndex] + "'s " + shoeSizeTypeString + " " + translate("shoeSizeConverterScreen.convertFromSize") + " ▼"}
+                options={removeNegatives(conversionTypeSizeValues)}
+                dropdownTextHighlightStyle={MODAL_SELECTED_TEXT}
+                dropdownTextStyle={MODAL_DROPDOWN_TEXT}
+                dropdownStyle={MODAL_SELECTED_TEXT}
+                textStyle={MODAL_SELECTED_TEXT}/>
             </View>
-            <ModalDropdown
-              onSelect={(index, value) => onModalSelect(index, value)}
-              defaultValue={translate("shoeSizeConverterScreen.modalTitlePrefix") + shoeSizeTypeString}
-              options={removeNegatives(conversionTypeSizeValues)}
-              dropdownTextHighlightStyle={MODAL_SELECTED_TEXT}
-              dropdownTextStyle={MODAL_DROPDOWN_TEXT}
-              dropdownStyle={MODAL_SELECTED_TEXT}
-              textStyle={MODAL_SELECTED_TEXT}/>
-          </View>
+          </TouchableOpacity>
         </View>
         <Divider style={DIVIDER}/>
         <View style={TO_CONVERT}>
@@ -286,9 +294,6 @@ export const ShoeSizeConveterScreen = observer(function ShoeSizeConveterScreen()
         <View style={CONVERTED}>
           <Text style={CONVERTED_TEXT}>{convertedSizeText()}</Text>
         </View>
-        <AdMobBanner
-          bannerSize="banner"
-          adUnitID={adUnitID}/>
       </Screen>
     </View>
   )

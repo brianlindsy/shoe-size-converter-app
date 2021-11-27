@@ -7,8 +7,9 @@
   "shoeSizeConverterScreen": {
     "title": "convertidor de talla de zapato",
     "convertFrom": "convertir de: ",
-    "convertFromSize": "Talla: ",
-    "convertTo": "convertir a: ",
+    "convertTo": "convertir a",
+    "convertFromSize": "Talla",
+    "convertedToSize": "Talla: ",
     "noConversion": "sin conversión directa",
     "modalTitlePrefix": "tamaño en ",
     "men": "hombres",

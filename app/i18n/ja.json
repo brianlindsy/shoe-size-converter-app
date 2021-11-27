@@ -7,7 +7,8 @@
   "shoeSizeConverterScreen": {
     "title": "靴のサイズコンバーター",
     "convertFrom": "から変換: ",
-    "convertFromSize": "サイズ: ",
+    "convertFromSize": "サイズ",
+    "convertToSize": "サイズ: ",
     "convertTo": "に変換: ",
     "noConversion": "直接変換なし",
     "modalTitlePrefix": "サイズで ",

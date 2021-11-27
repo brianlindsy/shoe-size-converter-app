@@ -7,8 +7,9 @@
   "shoeSizeConverterScreen": {
     "title": "जूता आकार कनवर्टर",
     "convertFrom": "से कनवर्ट करें: ",
-    "convertFromSize": "आकार: ",
-    "convertTo": "में बदलें: ",
+    "convertTo": "में बदलें",
+    "convertFromSize": "आकार",
+    "convertedToSize": "आकार: ",
     "noConversion": "कोई प्रत्यक्ष रूपांतरण नहीं",
     "modalTitlePrefix": "आकार में ",
     "men": "पुरुषों",
